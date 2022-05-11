@@ -4,8 +4,10 @@ import (
 	"encoding/base64"
 	"engine/logsys"
 	"fmt"
+	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func Query(Email string, key string, query string) (string, error) {
@@ -20,17 +22,17 @@ func Query(Email string, key string, query string) (string, error) {
 	req, err := http.NewRequest("GET", url, strings.NewReader(""))
 	if err != nil {
 		logsys.Error(err.Error())
-		return nil, err
+		return "", err
 	}
 	resp, err := client.Do(req)
 	if err != nil {
 		logsys.Error(err.Error())
-		return nil, err
+		return "", err
 	}
-	result, err := io.ReadAll(resp)
+	result, err := io.ReadAll(resp.Body)
 	if err != nil {
 		logsys.Error(err.Error())
-		return nil, err
+		return "", err
 	}
-	return result, err
+	return string(result), err
 }
