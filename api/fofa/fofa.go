@@ -8,9 +8,10 @@ import (
 	"strings"
 )
 
-func Query(Email string, key string, query string) (*http.Response, error) {
+func Query(Email string, key string, query string) (string, error) {
 	const api = "https://fofa.info/api/v1/search/all?email=%s&key=%s&qbase64=%s&size=10000"
 	client := &http.Client{
+		Timeout: 5 * time.Second,
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			return http.ErrUseLastResponse
 		},
@@ -26,5 +27,10 @@ func Query(Email string, key string, query string) (*http.Response, error) {
 		logsys.Error(err.Error())
 		return nil, err
 	}
-	return resp, err
+	result, err := io.ReadAll(resp)
+	if err != nil {
+		logsys.Error(err.Error())
+		return nil, err
+	}
+	return result, err
 }
