@@ -9,7 +9,7 @@ import (
 )
 
 func Query(Email string, key string, query string) (*http.Response, error) {
-	const api = "https://fofa.so/api/v1/search/all?email=%s&key=%s&qbase64=%s&size=10000"
+	const api = "https://fofa.info/api/v1/search/all?email=%s&key=%s&qbase64=%s&size=10000"
 	client := &http.Client{
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			return http.ErrUseLastResponse
