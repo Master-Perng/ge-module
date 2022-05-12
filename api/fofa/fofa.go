@@ -2,8 +2,8 @@ package fofa
 
 import (
 	"encoding/base64"
-	"engine/logsys"
 	"fmt"
+	logsys "github.com/Master-Perng/go-module/log"
 	"io"
 	"net/http"
 	"strings"
