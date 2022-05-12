@@ -71,7 +71,7 @@ func Icp(key string, domain string) (string, error) {
 			return http.ErrUseLastResponse
 		},
 	}
-	re_icp_api := api + "/whois?key=%s&domain=%s"
+	re_icp_api := api + "/newicp?key=%s&domain=%s"
 	url := fmt.Sprintf(re_icp_api, key, domain)
 	req, err := http.NewRequest("GET", url, strings.NewReader(""))
 	if err != nil {
