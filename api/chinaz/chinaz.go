@@ -1,0 +1,119 @@
+package chinaz
+
+import (
+	"fmt"
+	logsys "github.com/Master-Perng/go-module/log"
+	"io"
+	"net/http"
+	"strings"
+	"time"
+)
+
+const api = "https://apidatav2.chinaz.com/single"
+
+func re_whois(key string, queryData string, queryType string) (string, error) {
+	client := &http.Client{
+		Timeout: 5 * time.Second,
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			return http.ErrUseLastResponse
+		},
+	}
+	re_icp_api := api + "/whoisreverse?key=%s&queryData=%s&queryType=%s"
+	url := fmt.Sprintf(re_icp_api, key, queryData, queryType)
+	req, err := http.NewRequest("GET", url, strings.NewReader(""))
+	if err != nil {
+		logsys.Error(err.Error())
+		return "", err
+	}
+	resp, err := client.Do(req)
+	if err != nil {
+		logsys.Error(err.Error())
+		return "", err
+	}
+	result, err := io.ReadAll(resp.Body)
+	if err != nil {
+		logsys.Error(err.Error())
+		return "", err
+	}
+	return string(result), err
+}
+func whois(key string, domain string) (string, error) {
+	client := &http.Client{
+		Timeout: 5 * time.Second,
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			return http.ErrUseLastResponse
+		},
+	}
+	re_icp_api := api + "/whois?key=%s&domain=%s"
+	url := fmt.Sprintf(re_icp_api, key, domain)
+	req, err := http.NewRequest("GET", url, strings.NewReader(""))
+	if err != nil {
+		logsys.Error(err.Error())
+		return "", err
+	}
+	resp, err := client.Do(req)
+	if err != nil {
+		logsys.Error(err.Error())
+		return "", err
+	}
+	result, err := io.ReadAll(resp.Body)
+	if err != nil {
+		logsys.Error(err.Error())
+		return "", err
+	}
+	return string(result), err
+
+}
+func icp(key string, domain string) (string, error) {
+	client := &http.Client{
+		Timeout: 5 * time.Second,
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			return http.ErrUseLastResponse
+		},
+	}
+	re_icp_api := api + "/whois?key=%s&domain=%s"
+	url := fmt.Sprintf(re_icp_api, key, domain)
+	req, err := http.NewRequest("GET", url, strings.NewReader(""))
+	if err != nil {
+		logsys.Error(err.Error())
+		return "", err
+	}
+	resp, err := client.Do(req)
+	if err != nil {
+		logsys.Error(err.Error())
+		return "", err
+	}
+	result, err := io.ReadAll(resp.Body)
+	if err != nil {
+		logsys.Error(err.Error())
+		return "", err
+	}
+	return string(result), err
+
+}
+func re_icp(key string, companyname string) (string, error) {
+	client := &http.Client{
+		Timeout: 5 * time.Second,
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			return http.ErrUseLastResponse
+		},
+	}
+	re_icp_api := api + "/newsponsorunit?key=%s&companyname=%s"
+	url := fmt.Sprintf(re_icp_api, key, companyname)
+	req, err := http.NewRequest("GET", url, strings.NewReader(""))
+	if err != nil {
+		logsys.Error(err.Error())
+		return "", err
+	}
+	resp, err := client.Do(req)
+	if err != nil {
+		logsys.Error(err.Error())
+		return "", err
+	}
+	result, err := io.ReadAll(resp.Body)
+	if err != nil {
+		logsys.Error(err.Error())
+		return "", err
+	}
+	return string(result), err
+}
