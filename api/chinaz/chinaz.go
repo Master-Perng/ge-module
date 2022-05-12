@@ -66,7 +66,7 @@ func Whois(key string, domain string) (string, error) {
 }
 func Icp(key string, domain string) (string, error) {
 	client := &http.Client{
-		Timeout: 5 * time.Second,
+		Timeout: 10 * time.Second,
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			return http.ErrUseLastResponse
 		},
@@ -93,7 +93,7 @@ func Icp(key string, domain string) (string, error) {
 }
 func Re_Icp(key string, companyname string) (string, error) {
 	client := &http.Client{
-		Timeout: 5 * time.Second,
+		Timeout: 10 * time.Second,
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			return http.ErrUseLastResponse
 		},
