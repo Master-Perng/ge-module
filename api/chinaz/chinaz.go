@@ -11,7 +11,7 @@ import (
 
 const api = "https://apidatav2.chinaz.com/single"
 
-func re_whois(key string, queryData string, queryType string) (string, error) {
+func Re_whois(key string, queryData string, queryType string) (string, error) {
 	client := &http.Client{
 		Timeout: 5 * time.Second,
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
@@ -37,7 +37,7 @@ func re_whois(key string, queryData string, queryType string) (string, error) {
 	}
 	return string(result), err
 }
-func whois(key string, domain string) (string, error) {
+func Whois(key string, domain string) (string, error) {
 	client := &http.Client{
 		Timeout: 5 * time.Second,
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
@@ -64,7 +64,7 @@ func whois(key string, domain string) (string, error) {
 	return string(result), err
 
 }
-func icp(key string, domain string) (string, error) {
+func Icp(key string, domain string) (string, error) {
 	client := &http.Client{
 		Timeout: 5 * time.Second,
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
@@ -91,7 +91,7 @@ func icp(key string, domain string) (string, error) {
 	return string(result), err
 
 }
-func re_icp(key string, companyname string) (string, error) {
+func Re_Icp(key string, companyname string) (string, error) {
 	client := &http.Client{
 		Timeout: 5 * time.Second,
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
