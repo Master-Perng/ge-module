@@ -13,7 +13,7 @@ const api = "https://apidatav2.chinaz.com/single"
 
 func Re_whois(key string, queryData string, queryType string) (string, error) {
 	client := &http.Client{
-		Timeout: 5 * time.Second,
+		Timeout: 15 * time.Second,
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			return http.ErrUseLastResponse
 		},
@@ -39,7 +39,7 @@ func Re_whois(key string, queryData string, queryType string) (string, error) {
 }
 func Whois(key string, domain string) (string, error) {
 	client := &http.Client{
-		Timeout: 5 * time.Second,
+		Timeout: 15 * time.Second,
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			return http.ErrUseLastResponse
 		},
@@ -66,7 +66,7 @@ func Whois(key string, domain string) (string, error) {
 }
 func Icp(key string, domain string) (string, error) {
 	client := &http.Client{
-		Timeout: 10 * time.Second,
+		Timeout: 15 * time.Second,
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			return http.ErrUseLastResponse
 		},
@@ -93,7 +93,7 @@ func Icp(key string, domain string) (string, error) {
 }
 func Re_Icp(key string, companyname string) (string, error) {
 	client := &http.Client{
-		Timeout: 10 * time.Second,
+		Timeout: 15 * time.Second,
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			return http.ErrUseLastResponse
 		},
