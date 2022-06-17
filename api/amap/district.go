@@ -37,9 +37,9 @@ func Districts(keyword string, subdistrict string, key string) ([]string, error)
 	}
 	re := regexp.MustCompile(`"name":"(.+?)"`)
 	result1 := re.FindAllStringSubmatch(string(result), -1)
-	sub := []string{}
+	sub := make([]string, len(result1))
 	for i := range result1 {
-		sub[i] = result1[0][1]
+		sub[i] = result1[i][1]
 	}
 	return sub, err
 }
