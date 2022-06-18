@@ -2,7 +2,6 @@ package tyc
 
 import (
 	"encoding/json"
-	"fmt"
 	logsys "github.com/Master-Perng/go-module/log"
 	jsoniter "github.com/json-iterator/go"
 )
@@ -15,7 +14,7 @@ type Tycsub struct {
 	Name string `json:"name"`
 }
 
-func GetSub(name string, token string) {
+func GetSub(name string, token string) []Tyc {
 	//返回一个数组，每组都对应着一家
 	result1, err := TycSub(1, name, token)
 	if err != nil {
@@ -77,5 +76,5 @@ func GetSub(name string, token string) {
 			}
 		}
 	}
-	fmt.Println(len(AllMap))
+	return AllMap
 }
