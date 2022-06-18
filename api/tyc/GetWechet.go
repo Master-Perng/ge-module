@@ -1,14 +1,9 @@
 package tyc
 
-import (
-	"encoding/json"
-	logsys "github.com/Master-Perng/go-module/log"
-	jsoniter "github.com/json-iterator/go"
-)
-
+/*
 func GetWechat(name string, token string) []Tycsub {
 	//返回一个数组，每组都对应着一家
-	result, err := TycInvestment(1, name, token)
+	/*result, err := TycInvestment(1, name, token)
 	if err != nil {
 		logsys.Error(err.Error())
 	}
@@ -39,3 +34,4 @@ func GetWechat(name string, token string) []Tycsub {
 	}
 	return AllMap
 }
+*/

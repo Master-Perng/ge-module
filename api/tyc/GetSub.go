@@ -1,5 +1,6 @@
 package tyc
 
+/*
 type Tyc struct {
 	Name    string `json:"name"`
 	Percent string `json:"percent"`
@@ -7,8 +8,8 @@ type Tyc struct {
 type Tycsub struct {
 	Name string `json:"name"`
 }
-
-func GetSub(name string, token string) []Tyc {
+*/
+/*func GetSub(name string, token string) []Tyc {
 	//返回一个数组，每组都对应着一家
 	/*result1, err := TycSub(1, name, token)
 	if err != nil {
@@ -70,5 +71,5 @@ func GetSub(name string, token string) []Tyc {
 			}
 		}
 	}
-	return AllMap*/
-}
+	return AllMap
+}*/
