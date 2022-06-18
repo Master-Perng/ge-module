@@ -6,11 +6,7 @@ import (
 	jsoniter "github.com/json-iterator/go"
 )
 
-type Tycsub struct {
-	Name string `json:"name"`
-}
-
-func GetSub(name string, token string) []Tycsub {
+func GetWechat(name string, token string) []Tycsub {
 	//返回一个数组，每组都对应着一家
 	result, err := TycInvestment(1, name, token)
 	if err != nil {
