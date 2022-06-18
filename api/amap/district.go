@@ -14,7 +14,7 @@ const api = "https://restapi.amap.com/v3/config/district?keywords=%s&subdistrict
 
 func Districts(keyword string, subdistrict string, key string) ([]string, error) {
 	client := &http.Client{
-		Timeout: 30 * time.Second,
+		Timeout: 15 * time.Second,
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			return http.ErrUseLastResponse
 		},
