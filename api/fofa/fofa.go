@@ -13,7 +13,7 @@ import (
 func Query(Email string, key string, query string, fields string) (string, error) {
 	const api = "https://fofa.info/api/v1/search/all?email=%s&key=%s&qbase64=%s&size=2000&fields=%s"
 	client := &http.Client{
-		Timeout: 5 * time.Second,
+		Timeout: 15 * time.Second,
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			return http.ErrUseLastResponse
 		},
