@@ -12,7 +12,7 @@ import (
 
 const githubapi = "https://api.github.com/search/code?q=%s"
 
-func SearchGithub(keyword string, token string) string {
+func SearchGithub(keyword string, token string) (string, error) {
 	language := " language:C# or language:java or language:php or language:go"
 	//创建client结果，里面是http连接的参数 ， 比如超时 https策略 代理等等
 	client := &http.Client{
@@ -26,12 +26,15 @@ func SearchGithub(keyword string, token string) string {
 	req.Header.Add("Authorization", "token "+token)
 	req.Header.Add("Accept", "application/vnd.github.v3+json")
 	if err != nil {
+		logsys.Error(err.Error())
+		return "", err
 	}
 	resp, err := client.Do(req)
 	result, err := io.ReadAll(resp.Body)
 	if err != nil {
 		logsys.Error(err.Error())
+		return "", err
 	}
-	return string(result)
+	return string(result), err
 
 }
