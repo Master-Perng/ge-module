@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-const githubapi = "https://api.github.com/search/code?per_page=30&page=%d&q=%s"
+const githubapi = "https://api.github.com/search/code?per_page=100&q=%s"
 
 func SearchGithub(keyword string, token string) (string, error) {
 	language := "  language:C# or language:java or language:php or language:go"
