@@ -1,19 +1,18 @@
-package github
+package csdn
 
 import (
 	"fmt"
 	logsys "github.com/Master-Perng/go-module/log"
+	jsoniter "github.com/json-iterator/go"
 	"io"
 	"net/http"
-	"net/url"
 	"strings"
 	"time"
 )
 
-const githubapi = "https://api.github.com/search/code?per_page=30&page=%d&q=%s"
+const csdn = "https://so.csdn.net/api/v3/search?q=%s&t=code&p=%d"
 
-func SearchGithub(keyword string, token string) (string, error) {
-	language := "  language:C# or language:java or language:php or language:go"
+func SearchCSDN(keyword string) (string, error) {
 	//创建client结果，里面是http连接的参数 ， 比如超时 https策略 代理等等
 	client := &http.Client{
 		Timeout: 15 * time.Second,
@@ -21,20 +20,31 @@ func SearchGithub(keyword string, token string) (string, error) {
 			return http.ErrUseLastResponse
 		},
 	}
-	reqUrl := fmt.Sprintf(githubapi, url.PathEscape(keyword+language))
+	reqUrl := fmt.Sprintf(csdn, keyword, 1)
 	req, err := http.NewRequest("GET", reqUrl, strings.NewReader(""))
-	req.Header.Add("Authorization", "token "+token)
-	req.Header.Add("Accept", "application/vnd.github.v3+json")
 	if err != nil {
-		logsys.Error(err.Error())
 		return "", err
 	}
 	resp, err := client.Do(req)
+	if err != nil {
+		return "", err
+	}
 	result, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+	page := jsoniter.Get(result, "total_page").ToInt()
+	if page > 1 {
+		reqUrl := fmt.Sprintf(csdn, keyword, page)
+		req, err = http.NewRequest("GET", reqUrl, strings.NewReader(""))
+		resp, err = client.Do(req)
+		resp, err = client.Do(req)
+		result, err = io.ReadAll(resp.Body)
+	}
 	if err != nil {
 		logsys.Error(err.Error())
 		return "", err
 	}
-	return string(result), err
+	return string(result), nil
 
 }
