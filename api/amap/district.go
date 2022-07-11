@@ -22,16 +22,19 @@ func Districts(keyword string, subdistrict string, key string) ([]string, error)
 	AmapUrl := fmt.Sprintf(api, keyword, subdistrict, key)
 	req, err := http.NewRequest("GET", AmapUrl, strings.NewReader(""))
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return nil, err
 	}
 	resp, err := client.Do(req)
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return nil, err
 	}
 	result, err := io.ReadAll(resp.Body)
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return nil, err
 	}
@@ -41,5 +44,6 @@ func Districts(keyword string, subdistrict string, key string) ([]string, error)
 	for i := range result1 {
 		sub[i] = result1[i][1]
 	}
+	defer client.CloseIdleConnections()
 	return sub, err
 }

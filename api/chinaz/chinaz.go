@@ -22,19 +22,23 @@ func Re_whois(key string, queryData string, queryType string) (string, error) {
 	url := fmt.Sprintf(re_icp_api, key, queryData, queryType)
 	req, err := http.NewRequest("GET", url, strings.NewReader(""))
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return "", err
 	}
 	resp, err := client.Do(req)
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return "", err
 	}
 	result, err := io.ReadAll(resp.Body)
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return "", err
 	}
+	defer client.CloseIdleConnections()
 	return string(result), err
 }
 func Whois(key string, domain string) (string, error) {
@@ -48,19 +52,23 @@ func Whois(key string, domain string) (string, error) {
 	url := fmt.Sprintf(re_icp_api, key, domain)
 	req, err := http.NewRequest("GET", url, strings.NewReader(""))
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return "", err
 	}
 	resp, err := client.Do(req)
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return "", err
 	}
 	result, err := io.ReadAll(resp.Body)
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return "", err
 	}
+	defer client.CloseIdleConnections()
 	return string(result), err
 
 }
@@ -75,19 +83,23 @@ func Icp(key string, domain string) (string, error) {
 	url := fmt.Sprintf(re_icp_api, key, domain)
 	req, err := http.NewRequest("GET", url, strings.NewReader(""))
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return "", err
 	}
 	resp, err := client.Do(req)
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return "", err
 	}
 	result, err := io.ReadAll(resp.Body)
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return "", err
 	}
+	defer client.CloseIdleConnections()
 	return string(result), err
 
 }
@@ -102,18 +114,22 @@ func Re_Icp(key string, companyname string) (string, error) {
 	url := fmt.Sprintf(re_icp_api, key, companyname)
 	req, err := http.NewRequest("GET", url, strings.NewReader(""))
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return "", err
 	}
 	resp, err := client.Do(req)
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return "", err
 	}
 	result, err := io.ReadAll(resp.Body)
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return "", err
 	}
+	defer client.CloseIdleConnections()
 	return string(result), err
 }

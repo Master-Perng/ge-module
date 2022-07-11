@@ -22,8 +22,10 @@ func DingBot(message string, api string) {
 	req.Header.Add("Content-Type", "application/json")
 	resp, err := client.Do(req)
 	if err != nil {
+		defer client.CloseIdleConnections()
 		log.Error("Error :", err.Error())
 	}
 	context, _ := io.ReadAll(resp.Body)
 	fmt.Println(string(context))
+	defer client.CloseIdleConnections()
 }

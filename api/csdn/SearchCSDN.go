@@ -23,16 +23,20 @@ func SearchCSDN(keyword string) (string, error) {
 	reqUrl := fmt.Sprintf(csdn, keyword, 1)
 	req, err := http.NewRequest("GET", reqUrl, strings.NewReader(""))
 	if err != nil {
+		defer client.CloseIdleConnections()
 		return "", err
 	}
 	resp, err := client.Do(req)
 	if err != nil {
+		defer client.CloseIdleConnections()
 		return "", err
 	}
 	result, err := io.ReadAll(resp.Body)
 	if err != nil {
+		defer client.CloseIdleConnections()
 		return "", err
 	}
+	defer client.CloseIdleConnections()
 	page := jsoniter.Get(result, "total_page").ToInt()
 	if page > 1 {
 		reqUrl := fmt.Sprintf(csdn, keyword, page)

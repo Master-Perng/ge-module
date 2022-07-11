@@ -32,9 +32,11 @@ func SearchGithub(keyword string, token string) (string, error) {
 	resp, err := client.Do(req)
 	result, err := io.ReadAll(resp.Body)
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return "", err
 	}
+	defer client.CloseIdleConnections()
 	return string(result), err
 
 }

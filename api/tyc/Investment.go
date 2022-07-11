@@ -24,18 +24,22 @@ func TycInvestment(page int, name string, token string) (string, error) {
 	req.Header.Add("Authorization", token)
 
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return "", err
 	}
 	resp, err := client.Do(req)
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return "", err
 	}
 	result, err := io.ReadAll(resp.Body)
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return "", err
 	}
+	defer client.CloseIdleConnections()
 	return string(result), err
 }

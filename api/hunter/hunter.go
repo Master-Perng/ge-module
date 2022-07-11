@@ -21,18 +21,22 @@ func Query(Username string, page int, key string, query string) (string, error) 
 	url := fmt.Sprintf(api, Username, key, base64.StdEncoding.EncodeToString([]byte(query)), page, time.Now().Year()-1, time.Now().Year())
 	req, err := http.NewRequest("GET", url, strings.NewReader(""))
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return "", err
 	}
 	resp, err := client.Do(req)
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return "", err
 	}
 	result, err := io.ReadAll(resp.Body)
 	if err != nil {
+		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
 		return "", err
 	}
+	defer client.CloseIdleConnections()
 	return string(result), err
 }
