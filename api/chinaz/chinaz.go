@@ -28,13 +28,8 @@ func Re_whois(key string, queryData string, queryType string) (string, error) {
 	}
 	resp, err := client.Do(req)
 	if strings.Contains(err.Error(), "Timeout") {
-		for {
-			time.Sleep(2 * time.Second)
-			resp, err = client.Do(req)
-			if !strings.Contains(err.Error(), "Timeout") {
-				break
-			}
-		}
+		time.Sleep(2 * time.Second)
+		resp, err = client.Do(req)
 	}
 
 	if err != nil {
@@ -68,13 +63,8 @@ func Whois(key string, domain string) (string, error) {
 	}
 	resp, err := client.Do(req)
 	if strings.Contains(err.Error(), "Timeout") {
-		for {
-			time.Sleep(2 * time.Second)
-			resp, err = client.Do(req)
-			if !strings.Contains(err.Error(), "Timeout") {
-				break
-			}
-		}
+		time.Sleep(2 * time.Second)
+		resp, err = client.Do(req)
 	}
 	if err != nil {
 		defer client.CloseIdleConnections()
@@ -108,13 +98,8 @@ func Icp(key string, domain string) (string, error) {
 	}
 	resp, err := client.Do(req)
 	if strings.Contains(err.Error(), "Timeout") {
-		for {
-			time.Sleep(2 * time.Second)
-			resp, err = client.Do(req)
-			if !strings.Contains(err.Error(), "Timeout") {
-				break
-			}
-		}
+		time.Sleep(2 * time.Second)
+		resp, err = client.Do(req)
 	}
 
 	if err != nil {
@@ -149,13 +134,8 @@ func Re_Icp(key string, companyname string) (string, error) {
 	}
 	resp, err := client.Do(req)
 	if strings.Contains(err.Error(), "Timeout") {
-		for {
-			time.Sleep(2 * time.Second)
-			resp, err = client.Do(req)
-			if !strings.Contains(err.Error(), "Timeout") {
-				break
-			}
-		}
+		time.Sleep(2 * time.Second)
+		resp, err = client.Do(req)
 	}
 
 	if err != nil {

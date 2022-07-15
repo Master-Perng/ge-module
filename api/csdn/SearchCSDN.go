@@ -47,13 +47,8 @@ func SearchCSDN(keyword string) (string, error) {
 		req, err = http.NewRequest("GET", reqUrl, strings.NewReader(""))
 		resp, err = client.Do(req)
 		if strings.Contains(err.Error(), "Timeout") {
-			for {
-				time.Sleep(2 * time.Second)
-				resp, err = client.Do(req)
-				if !strings.Contains(err.Error(), "Timeout") {
-					break
-				}
-			}
+			time.Sleep(2 * time.Second)
+			resp, err = client.Do(req)
 		}
 
 		result, err = io.ReadAll(resp.Body)
