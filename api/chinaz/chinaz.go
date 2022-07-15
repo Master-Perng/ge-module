@@ -27,15 +27,26 @@ func Re_whois(key string, queryData string, queryType string) (string, error) {
 		return "", err
 	}
 	resp, err := client.Do(req)
-	if strings.Contains(err.Error(), "Timeout") {
-		time.Sleep(2 * time.Second)
-		resp, err = client.Do(req)
-	}
-
 	if err != nil {
-		defer client.CloseIdleConnections()
-		logsys.Error(err.Error())
-		return "", err
+		if strings.Contains(err.Error(), "Timeout") {
+			i := 0
+			for {
+				time.Sleep(2 * time.Second)
+				_, err = client.Do(req)
+				i++
+				if err == nil {
+					break
+				}
+				if i > 5 {
+					defer client.CloseIdleConnections()
+					return "", err
+				}
+			}
+		} else {
+			defer client.CloseIdleConnections()
+			logsys.Error(err.Error())
+			return "", err
+		}
 	}
 	result, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -62,14 +73,26 @@ func Whois(key string, domain string) (string, error) {
 		return "", err
 	}
 	resp, err := client.Do(req)
-	if strings.Contains(err.Error(), "Timeout") {
-		time.Sleep(2 * time.Second)
-		resp, err = client.Do(req)
-	}
 	if err != nil {
-		defer client.CloseIdleConnections()
-		logsys.Error(err.Error())
-		return "", err
+		if strings.Contains(err.Error(), "Timeout") {
+			i := 0
+			for {
+				time.Sleep(2 * time.Second)
+				resp, err = client.Do(req)
+				i++
+				if err == nil {
+					break
+				}
+				if i > 5 {
+					defer client.CloseIdleConnections()
+					return "", err
+				}
+			}
+		} else {
+			defer client.CloseIdleConnections()
+			logsys.Error(err.Error())
+			return "", err
+		}
 	}
 	result, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -97,15 +120,26 @@ func Icp(key string, domain string) (string, error) {
 		return "", err
 	}
 	resp, err := client.Do(req)
-	if strings.Contains(err.Error(), "Timeout") {
-		time.Sleep(2 * time.Second)
-		resp, err = client.Do(req)
-	}
-
 	if err != nil {
-		defer client.CloseIdleConnections()
-		logsys.Error(err.Error())
-		return "", err
+		if strings.Contains(err.Error(), "Timeout") {
+			i := 0
+			for {
+				time.Sleep(2 * time.Second)
+				resp, err = client.Do(req)
+				i++
+				if err == nil {
+					break
+				}
+				if i > 5 {
+					defer client.CloseIdleConnections()
+					return "", err
+				}
+			}
+		} else {
+			defer client.CloseIdleConnections()
+			logsys.Error(err.Error())
+			return "", err
+		}
 	}
 	result, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -133,15 +167,26 @@ func Re_Icp(key string, companyname string) (string, error) {
 		return "", err
 	}
 	resp, err := client.Do(req)
-	if strings.Contains(err.Error(), "Timeout") {
-		time.Sleep(2 * time.Second)
-		resp, err = client.Do(req)
-	}
-
 	if err != nil {
-		defer client.CloseIdleConnections()
-		logsys.Error(err.Error())
-		return "", err
+		if strings.Contains(err.Error(), "Timeout") {
+			i := 0
+			for {
+				time.Sleep(2 * time.Second)
+				resp, err = client.Do(req)
+				i++
+				if err == nil {
+					break
+				}
+				if i > 5 {
+					defer client.CloseIdleConnections()
+					return "", err
+				}
+			}
+		} else {
+			defer client.CloseIdleConnections()
+			logsys.Error(err.Error())
+			return "", err
+		}
 	}
 	result, err := io.ReadAll(resp.Body)
 	if err != nil {

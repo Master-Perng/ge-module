@@ -30,9 +30,26 @@ func SearchGithub(keyword string, token string) (string, error) {
 		return "", err
 	}
 	resp, err := client.Do(req)
-	for strings.Contains(err.Error(), "Timeout") {
-		time.Sleep(2 * time.Second)
-		resp, err = client.Do(req)
+	if err != nil {
+		if strings.Contains(err.Error(), "Timeout") {
+			i := 0
+			for {
+				time.Sleep(2 * time.Second)
+				resp, err = client.Do(req)
+				i++
+				if err == nil {
+					break
+				}
+				if i > 5 {
+					defer client.CloseIdleConnections()
+					return "", err
+				}
+			}
+		} else {
+			defer client.CloseIdleConnections()
+			logsys.Error(err.Error())
+			return "", err
+		}
 	}
 	result, err := io.ReadAll(resp.Body)
 	if err != nil {
