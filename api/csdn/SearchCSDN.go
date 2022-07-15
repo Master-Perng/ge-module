@@ -46,7 +46,15 @@ func SearchCSDN(keyword string) (string, error) {
 		reqUrl := fmt.Sprintf(csdn, keyword, page)
 		req, err = http.NewRequest("GET", reqUrl, strings.NewReader(""))
 		resp, err = client.Do(req)
-		resp, err = client.Do(req)
+		if strings.Contains(err.Error(), "Timeout") {
+			for {
+				time.Sleep(2 * time.Second)
+				resp, err = client.Do(req)
+				if !strings.Contains(err.Error(), "Timeout") {
+					break
+				}
+			}
+		}
 
 		result, err = io.ReadAll(resp.Body)
 	}
