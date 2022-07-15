@@ -27,6 +27,10 @@ func Districts(keyword string, subdistrict string, key string) ([]string, error)
 		return nil, err
 	}
 	resp, err := client.Do(req)
+	for strings.Contains(err.Error(), "Timeout") {
+		time.Sleep(2 * time.Second)
+		resp, err = client.Do(req)
+	}
 	if err != nil {
 		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())

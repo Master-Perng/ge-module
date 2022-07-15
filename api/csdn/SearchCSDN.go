@@ -27,6 +27,10 @@ func SearchCSDN(keyword string) (string, error) {
 		return "", err
 	}
 	resp, err := client.Do(req)
+	for strings.Contains(err.Error(), "Timeout") {
+		time.Sleep(2 * time.Second)
+		resp, err = client.Do(req)
+	}
 	if err != nil {
 		defer client.CloseIdleConnections()
 		return "", err
@@ -43,6 +47,7 @@ func SearchCSDN(keyword string) (string, error) {
 		req, err = http.NewRequest("GET", reqUrl, strings.NewReader(""))
 		resp, err = client.Do(req)
 		resp, err = client.Do(req)
+
 		result, err = io.ReadAll(resp.Body)
 	}
 	if err != nil {

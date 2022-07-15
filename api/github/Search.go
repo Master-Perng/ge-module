@@ -13,7 +13,7 @@ import (
 const githubapi = "https://api.github.com/search/code?per_page=100&q=%s"
 
 func SearchGithub(keyword string, token string) (string, error) {
-	language := "  language:C# or language:java or language:php or language:go"
+	language := "  language:C# or language:java or language:php or language:go or language:jsp"
 	//创建client结果，里面是http连接的参数 ， 比如超时 https策略 代理等等
 	client := &http.Client{
 		Timeout: 15 * time.Second,
@@ -30,6 +30,10 @@ func SearchGithub(keyword string, token string) (string, error) {
 		return "", err
 	}
 	resp, err := client.Do(req)
+	for strings.Contains(err.Error(), "Timeout") {
+		time.Sleep(2 * time.Second)
+		resp, err = client.Do(req)
+	}
 	result, err := io.ReadAll(resp.Body)
 	if err != nil {
 		defer client.CloseIdleConnections()

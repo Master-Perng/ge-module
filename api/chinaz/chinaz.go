@@ -27,6 +27,10 @@ func Re_whois(key string, queryData string, queryType string) (string, error) {
 		return "", err
 	}
 	resp, err := client.Do(req)
+	for strings.Contains(err.Error(), "Timeout") {
+		time.Sleep(2 * time.Second)
+		resp, err = client.Do(req)
+	}
 	if err != nil {
 		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
@@ -57,6 +61,10 @@ func Whois(key string, domain string) (string, error) {
 		return "", err
 	}
 	resp, err := client.Do(req)
+	for strings.Contains(err.Error(), "Timeout") {
+		time.Sleep(2 * time.Second)
+		resp, err = client.Do(req)
+	}
 	if err != nil {
 		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
@@ -88,6 +96,10 @@ func Icp(key string, domain string) (string, error) {
 		return "", err
 	}
 	resp, err := client.Do(req)
+	for strings.Contains(err.Error(), "Timeout") {
+		time.Sleep(2 * time.Second)
+		resp, err = client.Do(req)
+	}
 	if err != nil {
 		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
@@ -119,6 +131,10 @@ func Re_Icp(key string, companyname string) (string, error) {
 		return "", err
 	}
 	resp, err := client.Do(req)
+	for strings.Contains(err.Error(), "Timeout") {
+		time.Sleep(2 * time.Second)
+		resp, err = client.Do(req)
+	}
 	if err != nil {
 		defer client.CloseIdleConnections()
 		logsys.Error(err.Error())
