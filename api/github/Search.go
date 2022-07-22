@@ -57,7 +57,6 @@ func SearchGithub(keyword string, token string) (string, error) {
 		logsys.Error(err.Error())
 		return "", err
 	}
-	logsys.Debug(keyword, string(result))
 	defer client.CloseIdleConnections()
 	return string(result), err
 
@@ -107,7 +106,6 @@ func SearchGithubJsp(keyword string, token string) (string, error) {
 		logsys.Error(err.Error())
 		return "", err
 	}
-	logsys.Debug(keyword, string(result))
 	defer client.CloseIdleConnections()
 	return string(result), err
 
