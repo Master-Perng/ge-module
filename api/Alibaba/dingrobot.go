@@ -14,7 +14,7 @@ func DingBot(message string, api string) {
 			return http.ErrUseLastResponse
 		},
 	}
-	data := "{\"msgtype\": \"text\",\"text\": {\"content\":\"" + message + "\"},\"at\":{\"atMobiles\":[\"17774014757\"]}}"
+	data := "{\"msgtype\": \"text\",\"text\": {\"content\":\"" + message + "\"},\"at\":{\"isAtAll\":true}}"
 	req, err := http.NewRequest("POST", api, strings.NewReader(data))
 	if err != nil {
 		log.Error("Error :", err.Error())
