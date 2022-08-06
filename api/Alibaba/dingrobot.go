@@ -1,6 +1,7 @@
 package Alibaba
 
 import (
+	"encoding/json"
 	"fmt"
 	log "github.com/Master-Perng/go-module/log"
 	"io"
@@ -8,14 +9,29 @@ import (
 	"strings"
 )
 
-func DingBot(message string, api string) {
+type Markdown struct {
+	Msgtype  string `json:"msgtype"`
+	Markdown struct {
+		Title string `json:"title"`
+		Text  string `json:"text"`
+	} `json:"markdown"`
+	isAtAll bool `json:"isAtAll"`
+}
+
+func DingBotMarkDown(title string, text string, api string) {
 	client := &http.Client{
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			return http.ErrUseLastResponse
 		},
 	}
-	data := "{\"msgtype\": \"text\",\"text\": {\"content\":\"" + message + "\"},\"at\":{\"isAtAll\":true}}"
-	req, err := http.NewRequest("POST", api, strings.NewReader(data))
+	GoData := Markdown{
+		Msgtype: "markdown",
+		isAtAll: true,
+	}
+	GoData.Markdown.Title = title
+	GoData.Markdown.Text = text
+	Postbody, err := json.Marshal(GoData)
+	req, err := http.NewRequest("POST", api, strings.NewReader(string(Postbody)))
 	if err != nil {
 		log.Error("Error :", err.Error())
 	}
