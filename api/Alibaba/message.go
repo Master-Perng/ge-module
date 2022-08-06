@@ -18,7 +18,6 @@ func Message(phone string, message string) string {
 	request.OutId = "abcdefg"
 	response, err := client.SendSms(request)
 	if err != nil {
-		defer client.CloseIdleConnections()
 		log.Error(err.Error())
 	}
 	return response.Message
