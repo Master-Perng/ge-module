@@ -15,7 +15,9 @@ type Markdown struct {
 		Title string `json:"title"`
 		Text  string `json:"text"`
 	} `json:"markdown"`
-	isAtAll bool `json:"isAtAll"`
+	At struct {
+		IsAtAll bool `json:"isAtAll"`
+	} `json:"at"`
 }
 
 func DingBotMarkDown(title string, text string, api string) {
@@ -26,10 +28,10 @@ func DingBotMarkDown(title string, text string, api string) {
 	}
 	GoData := Markdown{
 		Msgtype: "markdown",
-		isAtAll: true,
 	}
 	GoData.Markdown.Title = title
 	GoData.Markdown.Text = text
+	GoData.At.IsAtAll = true
 	Postbody, err := json.Marshal(GoData)
 	req, err := http.NewRequest("POST", api, strings.NewReader(string(Postbody)))
 	if err != nil {
