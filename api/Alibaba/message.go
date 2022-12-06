@@ -1,11 +1,11 @@
 package Alibaba
 
 import (
-	log "engine/logsys"
+	log "github.com/Master-Perng/go-module/log"
 	dysmsapi "github.com/aliyun/alibaba-cloud-sdk-go/services/dysmsapi"
 )
 
-//Message函数使用阿里云sdk
+// Message函数使用阿里云sdk
 func Message(phone string, message string) string {
 	client, err := dysmsapi.NewClientWithAccessKey("cn-shanghai", "LTAI5tEaMFHzJ7ZbVHJHdaCG", "k12myDRsOqM6AJBrmHu9a9IQ1zrVmS")
 	request := dysmsapi.CreateSendSmsRequest()
