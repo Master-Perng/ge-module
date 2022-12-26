@@ -104,7 +104,7 @@ func ChangeFQDNStatus(SecretId string, SecretKey string, Domain string, RecordId
 
 }
 
-func AddFQDN(SecretId string, SecretKey string, Domain string, RecordType string, RecordLine string, Value string) error {
+func AddFQDN(SecretId string, SecretKey string, Domain string, RecordType string, RecordLine string, Value string) (string, error) {
 	credential := common.NewCredential(
 		SecretId,
 		SecretKey,
@@ -130,17 +130,17 @@ func AddFQDN(SecretId string, SecretKey string, Domain string, RecordType string
 	response, err := client.CreateRecord(request)
 	if _, ok := err.(*errors.TencentCloudSDKError); ok {
 		fmt.Printf("An API error has returned: %s", err)
-		return err
+		return "", err
 	}
 	if err != nil {
-		return err
+		return "", err
 	}
 	// 输出json格式的字符串回包
-	return err
+	return response.ToJsonString(), err
 
 }
 
-func ChangeDomainStatus(SecretId string, SecretKey string, Domain string, StatusBool bool) error {
+func ChangeDomainStatus(SecretId string, SecretKey string, Domain string, StatusBool bool) (string, error) {
 	credential := common.NewCredential(
 		SecretId,
 		SecretKey,
@@ -166,18 +166,18 @@ func ChangeDomainStatus(SecretId string, SecretKey string, Domain string, Status
 	request.Status = common.StringPtr(Status)
 
 	// 返回的resp是一个ModifyDomainStatusResponse的实例，与请求对象对应
-	_, err := client.ModifyDomainStatus(request)
+	response, err := client.ModifyDomainStatus(request)
 	if _, ok := err.(*errors.TencentCloudSDKError); ok {
 		fmt.Printf("An API error has returned: %s", err)
-		return err
+		return "", err
 	}
 	if err != nil {
-		return err
+		return "", err
 	}
 	// 输出json格式的字符串回包
-	return err
+	return response.ToJsonString(), err
 }
-func ChangeFQDN(SecretId string, SecretKey string, Domain string, RecordType string, RecordLine string, Value string, RecordId uint64) error {
+func ChangeFQDN(SecretId string, SecretKey string, Domain string, RecordType string, RecordLine string, Value string, RecordId uint64) (string, error) {
 	credential := common.NewCredential(
 		SecretId,
 		SecretKey,
@@ -203,17 +203,16 @@ func ChangeFQDN(SecretId string, SecretKey string, Domain string, RecordType str
 	// 返回的resp是一个ModifyRecordResponse的实例，与请求对象对应
 	response, err := client.ModifyRecord(request)
 	if _, ok := err.(*errors.TencentCloudSDKError); ok {
-		fmt.Printf("An API error has returned: %s", err)
-		return err
+		return "", err
 	}
 	if err != nil {
-		return err
+		return "", err
 	}
 	// 输出json格式的字符串回包
-	return err
+	return response.ToJsonString(), err
 }
 
-func DeleteFQDN(SecretId string, SecretKey string, Domain string, RecordId uint64) error {
+func DeleteFQDN(SecretId string, SecretKey string, Domain string, RecordId uint64) (string, error) {
 	credential := common.NewCredential(
 		SecretId,
 		SecretKey,
@@ -234,11 +233,11 @@ func DeleteFQDN(SecretId string, SecretKey string, Domain string, RecordId uint6
 	response, err := client.DeleteRecord(request)
 	if _, ok := err.(*errors.TencentCloudSDKError); ok {
 		fmt.Printf("An API error has returned: %s", err)
-		return err
+		return "", err
 	}
 	if err != nil {
-		return err
+		return "", err
 	}
 	// 输出json格式的字符串回包
-	return err
+	return response.ToJsonString(), err
 }
