@@ -65,7 +65,7 @@ func GetFQDN(SecretId string, SecretKey string, Domain string) (string, error) {
 	return response.ToJsonString(), nil
 }
 
-func ChangeFQDNStatus(SecretId string, SecretKey string, Domain string, RecordId int, StatusBool bool) (string, error) {
+func ChangeFQDNStatus(SecretId string, SecretKey string, Domain string, RecordId uint64, StatusBool bool) (string, error) {
 	credential := common.NewCredential(
 		SecretId,
 		SecretKey,
@@ -177,7 +177,7 @@ func ChangeDomainStatus(SecretId string, SecretKey string, Domain string, Status
 	// 输出json格式的字符串回包
 	return err
 }
-func ChangeFQDN(SecretId string, SecretKey string, Domain string, RecordType string, RecordLine string, Value string, RecordId int) error {
+func ChangeFQDN(SecretId string, SecretKey string, Domain string, RecordType string, RecordLine string, Value string, RecordId uint64) error {
 	credential := common.NewCredential(
 		SecretId,
 		SecretKey,
@@ -213,7 +213,7 @@ func ChangeFQDN(SecretId string, SecretKey string, Domain string, RecordType str
 	return err
 }
 
-func DeleteFQDN(SecretId string, SecretKey string, Domain string, RecordId int) error {
+func DeleteFQDN(SecretId string, SecretKey string, Domain string, RecordId uint64) error {
 	credential := common.NewCredential(
 		SecretId,
 		SecretKey,
