@@ -14,6 +14,7 @@ func GetAllRootDomain(SecretId string, SecretKey string) (string, error) {
 		SecretId,
 		SecretKey,
 	)
+
 	// 实例化一个client选项，可选的，没有特殊需求可以跳过
 	cpf := profile.NewClientProfile()
 	cpf.HttpProfile.Endpoint = "dnspod.tencentcloudapi.com"
