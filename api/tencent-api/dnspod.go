@@ -104,7 +104,7 @@ func ChangeFQDNStatus(SecretId string, SecretKey string, Domain string, RecordId
 
 }
 
-func AddFQDN(SecretId string, SecretKey string, Domain string, RecordType string, RecordLine string, Value string) (string, error) {
+func AddFQDN(SecretId string, SecretKey string, Sub string, Domain string, RecordType string, RecordLine string, Value string) (string, error) {
 	credential := common.NewCredential(
 		SecretId,
 		SecretKey,
@@ -122,6 +122,7 @@ func AddFQDN(SecretId string, SecretKey string, Domain string, RecordType string
 	request := dnspod.NewCreateRecordRequest()
 
 	request.Domain = common.StringPtr(Domain)
+	request.SubDomain = common.StringPtr(Sub)
 	request.RecordType = common.StringPtr(RecordType)
 	request.RecordLine = common.StringPtr(RecordLine)
 	request.Value = common.StringPtr(Value)
@@ -177,7 +178,7 @@ func ChangeDomainStatus(SecretId string, SecretKey string, Domain string, Status
 	// 输出json格式的字符串回包
 	return response.ToJsonString(), err
 }
-func ChangeFQDN(SecretId string, SecretKey string, Domain string, RecordType string, RecordLine string, Value string, RecordId uint64) (string, error) {
+func ChangeFQDN(SecretId string, SecretKey string, Sub string, Domain string, RecordType string, RecordLine string, Value string, RecordId uint64) (string, error) {
 	credential := common.NewCredential(
 		SecretId,
 		SecretKey,
@@ -198,6 +199,7 @@ func ChangeFQDN(SecretId string, SecretKey string, Domain string, RecordType str
 	request.RecordType = common.StringPtr(RecordType)
 	request.RecordLine = common.StringPtr(RecordLine)
 	request.Value = common.StringPtr(Value)
+	request.SubDomain = common.StringPtr(Sub)
 	request.RecordId = common.Uint64Ptr(RecordId)
 
 	// 返回的resp是一个ModifyRecordResponse的实例，与请求对象对应
