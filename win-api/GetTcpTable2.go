@@ -11,6 +11,6 @@ type MIB_TCPROW_OWNER_PID struct {
 }
 
 type MIB_TCPTABLE2 struct {
-	dwNumEntries uint32
-	table        [4096]MIB_TCPROW_OWNER_PID
+	DwNumEntries uint32
+	Table        [4096]MIB_TCPROW_OWNER_PID
 }
