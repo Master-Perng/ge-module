@@ -21,6 +21,6 @@ type MIB_UDPROW_OWNER_PID struct {
 }
 
 type MIB_UDPTABLE struct {
-	dwNumEntries uint32
+	DwNumEntries uint32
 	MIB_UDPROW   [4096]MIB_UDPROW_OWNER_PID
 }
