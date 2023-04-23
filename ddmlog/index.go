@@ -175,33 +175,33 @@ func (l *Logger) OutConsole(calldepth int, s string, mode string) error {
 	return nil
 }
 
-func Write(writer *os.File, format ...string) {
+func Write(writer *os.File, format ...any) {
 	logger := New(writer, fmt.Sprintf("[%s] ", format[0]), log.Ldate|log.Ltime|log.Lmicroseconds|log.Lshortfile|log.LstdFlags)
 	logger.Output(2, fmt.Sprint(format[1:]))
 
 }
 
-func Info(format ...string) {
+func Info(format ...any) {
 	logger := New(os.Stdout, fmt.Sprintf("[%s] ", format[0]), log.Ldate|log.Ltime|log.Lmicroseconds|log.Lshortfile|log.LstdFlags)
 	logger.OutConsole(2, fmt.Sprint(format[1:]), "Info")
 }
 
-func Error(format ...string) {
+func Error(format ...any) {
 	logger := New(os.Stdout, fmt.Sprintf("[%s] ", format[0]), log.Ldate|log.Ltime|log.Lmicroseconds|log.Lshortfile|log.LstdFlags)
 	logger.OutConsole(2, fmt.Sprint(format[1:]), "Error")
 }
 
-func Debug(format string) {
+func Debug(format ...any) {
 	logger := New(os.Stdout, fmt.Sprintf("[%s] ", format[0]), log.Ldate|log.Ltime|log.Lmicroseconds|log.Lshortfile|log.LstdFlags)
 	logger.OutConsole(2, fmt.Sprint(format[1:]), "Debug")
 }
 
-func Trace(format string) {
+func Trace(format ...any) {
 	logger := New(os.Stdout, fmt.Sprintf("[%s] ", format[0]), log.Ldate|log.Ltime|log.Lmicroseconds|log.Lshortfile|log.LstdFlags)
 	logger.OutConsole(2, fmt.Sprint(format[1:]), "Trace")
 }
 
-func Warn(format string) {
+func Warn(format ...any) {
 	logger := New(os.Stdout, fmt.Sprintf("[%s] ", format[0]), log.Ldate|log.Ltime|log.Lmicroseconds|log.Lshortfile|log.LstdFlags)
 	logger.OutConsole(2, fmt.Sprint(format[1:]), "Warn")
 }
